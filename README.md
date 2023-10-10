@@ -1,9 +1,8 @@
-
 Breve descrição do grupo
 
-* Turno: [L]XX
-* Grupo: YY
+* Turno: L14
+* Grupo: G04
 * Alunos:
-    - Aluno1 upZZZZZ 
-    - Aluno2 upZZZZZ
-    - Aluno3 upZZZZZ
+    - Ana Azevedo - 202108654
+    - Gabriel Ferreira - 202108722
+    - Luís Du - 202105385
