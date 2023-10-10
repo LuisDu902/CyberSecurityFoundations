@@ -27,4 +27,16 @@ When fork() is invoked in Unix, it creates a new process by duplicating the pare
 
 The task aims to determine whether environment variables of the parent process are inherited by the child process when fork() is used.
 
+<img src="screenshots/2.2__1_.png" alt="Image 2.2_1">
+
+When we use the diff command in Step 3 to compare the two output files, it reveals no differences because both files should be identical, illustrating that the child process inherits the parent's environment variables.
+
+
+
+## 2.3 Task 3: Environment Variables and execve()
+
+In this task, we're investigating how environment variables behave when a new program is executed using the **execve()** function.
+
+By doing this, we aim to understand if the environment variables from the calling process are inherited by the new program.
+
 
