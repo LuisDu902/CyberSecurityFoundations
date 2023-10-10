@@ -38,5 +38,10 @@ When we use the diff command in Step 3 to compare the two output files, it revea
 In this task, we're investigating how environment variables behave when a new program is executed using the **execve()** function.
 
 By doing this, we aim to understand if the environment variables from the calling process are inherited by the new program.
-
-
+<table>
+  <tr>
+    <td><img src="screenshots/2.3__1_.png" alt="Image 2.3_1"></td>
+    <td>In the first step, when execve() was called with the environ argument set to NULL, the new program did not inherit environment variables from the calling process, indicating that environment variables are not automatically inherited by default. 
+    However, in the second step, when **execve()** was called with the environ argument **explicitly set** to the environ variable, the new program did inherit environment variables.</td>
+  </tr>
+</table>
