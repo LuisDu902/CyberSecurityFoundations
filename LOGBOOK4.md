@@ -45,31 +45,32 @@ In the first step, when execve() was called with the environ argument set to NUL
 However, in the second step, when **execve()** was called with the environ argument **explicitly set** to the environ variable, the new program did inherit environment variables.
 
 
-## 2.4 Task 4: Environment Variables and system()
-
-In this task, we're investigating how environment 
-
-
 ## 2.5 Task 5: Environment Variable and Set-UID Programs
 
-In this task, we're investigating how environment 
+Initially, we created a program to display the environment variables within the current process. Afterward, we compiled the program, changed its ownership to the root user, and transformed it into a Set-UID program following the provided instructions. In the shell, we utilized the "export" command in three different scenarios outlined in the lab tutorial.
+
+<table>
+  <tr>
+    <td><img src="screenshots/2.5__1_.png" alt="Image 2.1_1"></td>
+    <td><img src="screenshots/2.5__2_.png" alt="Image 2.1_2"></td>
+  </tr>
+</table>
+
+After running the program we confirmed that the environment variables we previously defined were present in the program's list of environment variables. 
+
+However, one key exception was LD_LIBRARY_PATH, which was omitted. This omission is due to LD_LIBRARY_PATH's ability to specify a path where the program looks for shared dynamic libraries. 
+
+Allowing unrestricted modifications to this variable could create security risks by enabling the execution of potentially harmful programs that replace essential libraries. Therefore, for security reasons, LD_LIBRARY_PATH has been omitted to prevent such vulnerabilities.
 
 
 ## 2.6 Task 6: The PATH Environment Variable and Set-UID Programs
 
-In this task, we're investigating how environment 
+First, we begin by creating a file named "2_6.c" in which we implement the code as specified in the assignment. Next, we develop our malicious code in a file named "ls.c." Then, we compile and run our malicious code.
 
+Afterwards, we change the ownership to root and turn it into a Set-UID program.
 
-## 2.7 Task 7: The LD PRELOAD Environment Variable and Set-UID Programs
+Finally, we modify the PATH environment variable to point to the directory where the malicious code is located.
 
-In this task, we're investigating how environment 
+As a result, when the "ls" command is executed, the code produced will be the malicious code rather than the system's "ls."
 
-
-## 2.8 Task 8: Invoking External Programs Using system() versus execve()
-
-In this task, we're investigating how environment 
-
-
-## 2.9 Task 9: Capability Leaking
-
-In this task, we're investigating how environment 
+<img src="screenshots/2.6__1_.png" alt="Image 2.6">
