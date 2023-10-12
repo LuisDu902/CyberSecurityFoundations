@@ -59,4 +59,4 @@ http://ctf-fsi.fe.up.pt:5001/my-account/?wcj_verify_email=eyJpZCI6IjEiLCJjb2RlIj
 
 A partir dos quais conseguimos aceder à plataforma usando a conta do administrador.
 
-<img src="../screenshots/ctf1/admin.png" alt="admin account">
+<img src="../screenshots/ctf1/admin_account.png" alt="admin account">
