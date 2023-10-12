@@ -2,9 +2,9 @@
 
 ## 2.1 Task 1: Manipulating Environment Variables
 
-In this task, we're using Bash in a seed account to learn about managing environment variables. Environment variables store information for Unix-based system processes. The primary goal is to **understand how to manipulate these variables** with Bash commands.
+Nesta tarefa, estamos a utilizar o Bash numa seed account para aprender sobre a gestão de variáveis de ambiente. As variáveis de ambiente armazenam informações para os processos de sistema Unix-based. O objetivo principal é compreender como manipular estas variáveis com comandos Bash.
 
-To begin, we can use commands like **printenv** or **env** to view all current environment variables. Additionally, we can display specific ones, such as the current working directory (PWD), using commands like **printenv PWD**.
+Para começar, utilizamos comandos como **printenv** e **env** para visualizar todas as variáveis de ambiente atuais. Além disso,exibimos variáveis específicas, como o diretório de trabalho atual (PWD), utilizando comandos como **printenv PWD**.
 <table>
   <tr>
     <td><img src="../screenshots/logbook4/2.1__1_.png" alt="Image 2.1_1"></td>
@@ -12,42 +12,44 @@ To begin, we can use commands like **printenv** or **env** to view all current e
   </tr>
 </table>
 
-The second part of this task involves using the export and unset commands to modify environment variables.
-- **export** is used to set or create new environment variables.
-- **unset** is used to remove or unset an environment variable, effectively deleting it from the environment.
+
+A segunda parte desta tarefa envolve o uso dos comandos export e unset para modificar variáveis de ambiente.
+
+- **export** é usado para definir ou criar novas variáveis de ambiente.
+- **unset** é usado para remover ou desativar uma variável de ambiente, excluindo-a eficasmente do ambiente.
 
 <img src="../screenshots/logbook4/2.1__3_.jpg" alt="Image 2.1_3">
 
 
 ## 2.2 Task 2: Passing Environment Variables from Parent Process to Child Process
 
-In this task, we investigate how child processes inherit environment variables from their parent in Unix operating systems (using fork() system call). 
+Nesta tarefa, investigamos como os processos filhos herdam as variáveis de ambiente dos seus pais em sistemas operativos Unix (usando a chamada ao sistema fork()).
 
-When fork() is invoked in Unix, it creates a new process by duplicating the parent process. The child process is nearly identical to the parent, but not all attributes are inherited.
+Quando se invoca a função fork() no Unix, cria-se um novo processo duplicando o processo pai. O processo filho é quase idêntico ao pai, mas nem todas as características são herdadas.
 
-The task aims to determine whether environment variables of the parent process are inherited by the child process when fork() is used.
+O objetivo da tarefa é determinar se as variáveis de ambiente do processo pai são herdadas pelo processo filho quando se utiliza o fork().
 
 <img src="../screenshots/logbook4/2.2__1_.png" alt="Image 2.2_1">
 
-When we use the diff command in Step 3 to compare the two output files, it reveals no differences because both files should be identical, illustrating that the child process inherits the parent's environment variables.
+Quando usamos o comando diff no Passo 3 para comparar os dois arquivos de saída, não são reveladas diferenças, porque ambos os arquivos devem ser idênticos, o que ilustra que o processo filho herda as variáveis de ambiente do processo pai.
 
 
 ## 2.3 Task 3: Environment Variables and execve()
 
-In this task, we're investigating how environment variables behave when a new program is executed using the **execve()** function.
+Nesta tarefa, estamos a investigar como as variáveis de ambiente se comportam quando um novo programa é executado utilizando a função **execve()**.
 
-By doing this, we aim to understand if the environment variables from the calling process are inherited by the new program.
+Ao fazer isto, pretendemos compreender se as variáveis de ambiente do processo de chamada são herdadas pelo novo programa.
 
 <img src="../screenshots/logbook4/2.3__1_.png" alt="Image 2.3_1">
 
-In the first step, when execve() was called with the environ argument set to NULL, the new program did not inherit environment variables from the calling process, indicating that environment variables are not automatically inherited by default. 
+No primeiro passo, quando o **execve()** foi chamado com o argumento environ definido como NULL, o novo programa não herdou as variáveis de ambiente do processo chamador, o que indica que as variáveis de ambiente não são herdadas automaticamente por padrão.
 
-However, in the second step, when **execve()** was called with the environ argument **explicitly set** to the environ variable, the new program did inherit environment variables.
+No entanto, no segundo passo, quando o **execve()** foi chamado com o argumento environ **explicitly set** como a variável environ, o novo programa herdou as variáveis de ambiente.
 
 
 ## 2.5 Task 5: Environment Variable and Set-UID Programs
 
-Initially, we created a program to display the environment variables within the current process. Afterward, we compiled the program, changed its ownership to the root user, and transformed it into a Set-UID program following the provided instructions. In the shell, we utilized the "export" command in three different scenarios outlined in the lab tutorial.
+Inicialmente, criámos um programa para apresentar as variáveis de ambiente dentro do processo atual. Posteriormente, compilámos o programa, alterámos a sua propriedade para o utilizador root e transformámo-lo num programa Set-UID seguindo as instruções fornecidas. Na linha de comandos, utilizámos o comando "export" em três cenários diferentes descritos no tutorial do laboratório.
 
 <table>
   <tr>
@@ -56,21 +58,21 @@ Initially, we created a program to display the environment variables within the 
   </tr>
 </table>
 
-After running the program we confirmed that the environment variables we previously defined were present in the program's list of environment variables. 
+Após executarmos o programa, confirmámos que as variáveis de ambiente que tínhamos previamente definido estavam presentes na lista de variáveis de ambiente do programa.
 
-However, one key exception was LD_LIBRARY_PATH, which was omitted. This omission is due to LD_LIBRARY_PATH's ability to specify a path where the program looks for shared dynamic libraries. 
+No entanto, uma exceção importante foi LD_LIBRARY_PATH, que foi omitida. Esta omissão deve-se à capacidade do LD_LIBRARY_PATH de especificar um caminho onde o programa procura bibliotecas dinâmicas partilhadas.
 
-Allowing unrestricted modifications to this variable could create security risks by enabling the execution of potentially harmful programs that replace essential libraries. Therefore, for security reasons, LD_LIBRARY_PATH has been omitted to prevent such vulnerabilities.
+Permitir modificações ilimitadas nesta variável poderia criar riscos de segurança, ao possibilitar a execução de programas potencialmente prejudiciais que substituíssem bibliotecas essenciais. Portanto, por motivos de segurança, o LD_LIBRARY_PATH foi omitido para evitar tais vulnerabilidades.
 
 
 ## 2.6 Task 6: The PATH Environment Variable and Set-UID Programs
 
-First, we begin by creating a file named "2_6.c" in which we implement the code as specified in the assignment. Next, we develop our malicious code in a file named "ls.c." Then, we compile and run our malicious code.
+Em primeiro lugar, começamos por criar um ficheiro com o nome "2_6.c" no qual implementamos o código conforme especificado na tarefa. Em seguida, desenvolvemos o nosso código malicioso num ficheiro com o nome "ls.c." Depois, compilamos e executamos o nosso código malicioso.
 
-Afterwards, we change the ownership to root and turn it into a Set-UID program.
+Posteriormente, alteramos a propriedade para root e transformamo-lo num programa Set-UID.
 
-Finally, we modify the PATH environment variable to point to the directory where the malicious code is located.
+Por fim, modificamos a variável de ambiente PATH para apontar para o diretório onde o código malicioso está localizado.
 
-As a result, when the "ls" command is executed, the code produced will be the malicious code rather than the system's "ls."
+Como resultado, quando o comando "ls" é executado, o código produzido será o código malicioso em vez do "ls" do sistema.
 
 <img src="../screenshots/logbook4/2.6__1_.png" alt="Image 2.6">
