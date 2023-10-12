@@ -7,8 +7,8 @@ In this task, we're using Bash in a seed account to learn about managing environ
 To begin, we can use commands like **printenv** or **env** to view all current environment variables. Additionally, we can display specific ones, such as the current working directory (PWD), using commands like **printenv PWD**.
 <table>
   <tr>
-    <td><img src="screenshots/2.1__1_.png" alt="Image 2.1_1"></td>
-    <td><img src="screenshots/2.1__2_.png" alt="Image 2.1_2"></td>
+    <td><img src="../screenshots/logbook4/2.1__1_.png" alt="Image 2.1_1"></td>
+    <td><img src="../screenshots/logbook4/2.1__2_.png" alt="Image 2.1_2"></td>
   </tr>
 </table>
 
@@ -16,7 +16,7 @@ The second part of this task involves using the export and unset commands to mod
 - **export** is used to set or create new environment variables.
 - **unset** is used to remove or unset an environment variable, effectively deleting it from the environment.
 
-<img src="screenshots/2.1__3_.jpg" alt="Image 2.1_3">
+<img src="../screenshots/logbook4/2.1__3_.jpg" alt="Image 2.1_3">
 
 
 ## 2.2 Task 2: Passing Environment Variables from Parent Process to Child Process
@@ -27,7 +27,7 @@ When fork() is invoked in Unix, it creates a new process by duplicating the pare
 
 The task aims to determine whether environment variables of the parent process are inherited by the child process when fork() is used.
 
-<img src="screenshots/2.2__1_.png" alt="Image 2.2_1">
+<img src="../screenshots/logbook4/2.2__1_.png" alt="Image 2.2_1">
 
 When we use the diff command in Step 3 to compare the two output files, it reveals no differences because both files should be identical, illustrating that the child process inherits the parent's environment variables.
 
@@ -38,7 +38,7 @@ In this task, we're investigating how environment variables behave when a new pr
 
 By doing this, we aim to understand if the environment variables from the calling process are inherited by the new program.
 
-<img src="screenshots/2.3__1_.png" alt="Image 2.3_1">
+<img src="../screenshots/logbook4/2.3__1_.png" alt="Image 2.3_1">
 
 In the first step, when execve() was called with the environ argument set to NULL, the new program did not inherit environment variables from the calling process, indicating that environment variables are not automatically inherited by default. 
 
@@ -51,8 +51,8 @@ Initially, we created a program to display the environment variables within the 
 
 <table>
   <tr>
-    <td><img src="screenshots/2.5__1_.png" alt="Image 2.1_1"></td>
-    <td><img src="screenshots/2.5__2_.png" alt="Image 2.1_2"></td>
+    <td><img src="../screenshots/logbook4/2.5__1_.png" alt="Image 2.1_1"></td>
+    <td><img src="../screenshots/logbook4/2.5__2_.png" alt="Image 2.1_2"></td>
   </tr>
 </table>
 
@@ -73,4 +73,4 @@ Finally, we modify the PATH environment variable to point to the directory where
 
 As a result, when the "ls" command is executed, the code produced will be the malicious code rather than the system's "ls."
 
-<img src="screenshots/2.6__1_.png" alt="Image 2.6">
+<img src="../screenshots/logbook4/2.6__1_.png" alt="Image 2.6">
