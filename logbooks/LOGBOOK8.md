@@ -67,3 +67,6 @@ Password='7110eda4d09e062aa5e4a390b0a572ac0d2c0220' where Name = 'Boby' #
 
 
 O valor colocado na string, é a hash da nova password.
+
+
+![](https://lh7-us.googleusercontent.com/59mJH5nIjLUwK_k-Sqs4j30_mqDX7azNh_btMFmWlqWV81GWDNtG4duyIbSvrmVZ7tDfafv_M-quMlqq4qBKPvs4I1S3rQB1JRr8wtb_kHth1C6S1O4ufH79HJObmLsDG94uG6KrWFqq7sWAYNJ5Lnk)
