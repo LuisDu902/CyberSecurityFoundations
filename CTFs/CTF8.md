@@ -9,7 +9,7 @@ $query = "SELECT username FROM user WHERE username = '".$username."' AND passwor
 ```
 Os user inputs não são sanitizados o que permite ao utilizador fazer um ataque do tipo SQL Injection e permitir a autenticação sem ser necessário uma password.
 
-Posteriormente, inserimos a string "admin'--" no utilizador e iniciamos sessão com sucesso como admin e obtivemos a flag. Este string funciona uma vez que o ' define o fim da string e o -- inicia um comentário fazendo com que todo o código à frente nessa linha fosse inutilizado e a condição da password não precisava de ser cumprimada para a autenticação.
+Posteriormente, inserimos a string "admin'--" no utilizador e iniciamos sessão com sucesso como admin e obtivemos a flag. Este string funciona uma vez que o ' define o fim da string e o -- inicia um comentário fazendo com que todo o código à frente nessa linha fosse inutilizado e a condição da password não precisasse de ser cumprida para a autenticação.
 Na realidade, o código executado foi o seguinte:
 
 ```sql
