@@ -1,8 +1,6 @@
-
 # CTF 8
 
-## Primeira parte
-
+## SQL Injection
 
 Começamos por analisar o enunciado e o ficheiro fornecido, procurando vulnerabilidades que nos permitissem autenticar como administrador para obter a flag. Instantâneamente reparamos na seguinte linha:
 
