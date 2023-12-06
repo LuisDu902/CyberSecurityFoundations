@@ -158,7 +158,7 @@ p.interactive()
 
 Desta vez, a shell era de facto lançada, seguida imediatamente de um timeout, o que é justificado pelo elevado número de caracteres (mais de 12 milhões) escritos:
 
-<img src="../screenshots/ctf7/try2.PNG" alt="try">
+<img src="../screenshots/ctf7/try2.png" alt="try">
 
 #### Tentativa 3
 
