@@ -34,7 +34,7 @@ Nesta tarefa, o objetivo é explorar vários algoritmos e modos de criptografia 
     </tr>
     <tr>
         <th>'-aes-128-cfb'</th>
-        <th><img src="../screenshots/logbook10/-aes-128-cfb" alt="Image -aes-128-cfb"></th>
+        <th><img src="../screenshots/logbook10/-aes-128-cfb.png" alt="Image -aes-128-cfb"></th>
     </tr>
 </table>
     
