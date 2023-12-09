@@ -21,7 +21,13 @@ Após a descodificação obtivemos o texto contido no ficheiro [out.txt](textfil
 
 ## Task 2: Encryption using Different Ciphers and Modes
 
-Nesta tarefa, o objetivo é explorar vários algoritmos e modos de criptografia no ficheiro 'ciphertype'. Para isso, utlizamos as três opções que nos foram fornecidas no guião de trabalho. 
+Nesta tarefa, o objetivo é explorar vários algoritmos e modos de criptografia. Para isso, decidimos criar um ficheiro 'plain.txt' com um texto de exemplo ("second task message example") no qual aplicamos os diferentes modos de criptografia, usando o código fornecido no guião:
+
+```bash
+$ openssl enc -<ciphertype> -e -in plain.txt -out cipher.txt -K 00112233445566778889aabbccddeeff -iv 0102030405060708
+```
+
+Decimos também usar os três tipos de encriptação que nos foram fornecidos no guião de trabalho: 
 
 <table>
     <tr>
