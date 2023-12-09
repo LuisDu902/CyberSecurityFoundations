@@ -53,10 +53,11 @@ Para encriptar a imagem neste modo, recorremos ao openssl enc da seguinte forma:
 ```bash
 $ openssl enc -aes-128-ecb -e -in pic_original.bmp -out ecb.bmp -K 00112233445566778889aabbccddeeff
 ```
+<img src="../screenshots/logbook10/ecb_code.png" alt="Image ecb_code">
 
 <table>
     <tr>
-        <th><img src="../screenshots/logbook10/original.png" alt="ecb"></th>
+        <th><img src="../screenshots/logbook10/original.png" alt="original"></th>
         <th><img src="../screenshots/logbook10/ecb.png" alt="ecb"></th>
     </tr>
 </table>
@@ -70,10 +71,11 @@ Para encriptar a imagem neste modo, recorremos novamente ao openssl enc da segui
 ```bash
 $ openssl enc -aes-128-cbc -e -in pic_original.bmp -out cbc.bmp -K 00112233445566778889aabbccddeeff -iv 0102030405060708
 ```
+<img src="../screenshots/logbook10/cbc_code.png" alt="Image cbc_code">
 
 <table>
     <tr>
-        <th><img src="../screenshots/logbook10/original.png" alt="ecb"></th>
+        <th><img src="../screenshots/logbook10/original.png" alt="original"></th>
         <th><img src="../screenshots/logbook10/cbc.png" alt="cbc"></th>
     </tr>
 </table>
