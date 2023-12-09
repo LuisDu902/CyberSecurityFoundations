@@ -39,3 +39,39 @@ Nesta tarefa, o objetivo é explorar vários algoritmos e modos de criptografia 
 </table>
     
 ## Task 3: Encryption Mode – ECB vs. CBC
+
+###ECB (Electronic Code Book)
+
+Para encriptar a imagem neste modo, recorremos ao openssl enc da seguinte forma:
+
+```bash
+$ openssl enc -aes-128-ecb -e -in pic_original.bmp -out ecb.bmp -K 00112233445566778889aabbccddeeff
+```
+
+<table>
+    <tr>
+        <th><img src="../screenshots/logbook10/original.png" alt="ecb"></th>
+        <th><img src="../screenshots/logbook10/ecb.png" alt="ecb"></th>
+    </tr>
+</table>
+
+Ao observar ambas as imagens, percebemos claramente que ficaram bastante parecidas. As formas das imagens mantiveram-se semelhantes e identificá-las foi bastante simples, visto que este modo de encriptação apenas cifra blocos iguais de texto produzindo blocos de texto cifrado também semelhantes.
+
+###CBC (Cipher Block Chaining)
+
+Para encriptar a imagem neste modo, recorremos novamente ao openssl enc da seguinte forma:
+
+```bash
+$ openssl enc -aes-128-cbc -e -in pic_original.bmp -out cbc.bmp -K 00112233445566778889aabbccddeeff -iv 0102030405060708
+```
+
+<table>
+    <tr>
+        <th><img src="../screenshots/logbook10/original.png" alt="ecb"></th>
+        <th><img src="../screenshots/logbook10/cbc.png" alt="cbc"></th>
+    </tr>
+</table>
+
+Ao contrário da experiência anterior, neste caso torna-se impossível detetar qualquer semelhança entre as duas imagens. Isto ocorre uma vez que cada bloco de texto é combinado com o bloco cifrado anterior impedindo assim a identificação de padrões na imagem encriptada.
+
+No final, tal como pedido, repetimos todo o experimento para outra imagem à nossa escolha e os resultados mantiveram-se semelhantes.
