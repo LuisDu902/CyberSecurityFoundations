@@ -118,6 +118,42 @@ Assim, podemos ver no WireShark:
 ## Task 1.3: Traceroute
 
 
+Nesta tarefa, utilizamos o Scapy para estimar a distância, em termos de número de routers, entre máquina virtual (VM) e um destino selecionado. 
+
+O objetivo era criar uma ferramenta semelhante ao traceroute. O processo consistiu em enviar um pacote (de qualquer tipo) para o destino com o campo Time-To-Live (TTL) inicialmente definido como 1. 
+
+O primeiro router descartou o pacote, enviando-nos uma mensagem de erro ICMP indicando que o tempo de vida tinha sido excedido, revelando assim o endereço IP do primeiro router. 
+
+Esse procedimento foi repetido aumentando gradualmente o valor do TTL até que o pacote finalmente atingisse o destino. 
+
+No final, obtemos o seguint script:
+
+```python
+#!/usr/bin/env python3
+from scapy.all import *
+
+for i in range(1, 30):
+	a = IP()
+	a.dst = '8.8.8.8'
+	a.ttl = i
+	b = ICMP()
+	a_response = sr1(a/b, timeout=1, verbose=0)
+	
+	if a_response is not None:
+		print("Source:", a_response.src)
+		if a_response.src == '8.8.8.8':
+			print("Distance: ", a.ttl)
+			break  
+	else:
+		print("No response for TTL =", i)
+	time.sleep(1)
+```
+
+E aqui está o resultado de alguns testes para diferentes destinos:
+
+| '8.8.8.8' | '8.8.4.4' | '10.9.0.5' | '10.9.0.6' | 
+| ----------- | ----------- | ----------- | ----------- |
+| <img src="../screenshots/logbook13/task13_8888.png" alt="task13_8888">      | <img src="../screenshots/logbook13/task13_8844.png" alt="task13_8844">      | <img src="../screenshots/logbook13/task13_10905.png" alt="task13_10905">      | <img src="../screenshots/logbook13/task13_10906.png" alt="task13_10906">      |
 
 
 ## Task 1.4: Sniffing and-then Spoofing
