@@ -21,7 +21,7 @@ Tal como indicado no enunciado, a estrutura da flag é: flag{<frame_start>-<fram
 
 Assim, resolvendo por partes:
 
-1. <frame_start> e <frame_end>
+### 1. <frame_start> e <frame_end>
 
 Representam o primeiro e último número de frames do procedimento de handshake. Rapidamente conseguimos perceber que o primeiro número de frames do procedimento será **814**. 
 
@@ -31,22 +31,24 @@ Para além disso, compreendendo o funcionamento do protocolo TLS, sabemos que a 
 
 <img src="../screenshots/ctf13/frame_end.png" alt="frame_end">
 
-2. <selected_cipher_suite>
+### 2. <selected_cipher_suite>
 
 Trata-se do nome da ciphersuite escolhida. Para o descobrirmos, apenas tivemos de analisar a frame 814 e procurar o campo Cipher Suite. Assim descobrimos que se tratava do valor **TLS_RSA_WITH_AES_128_CBC_SHA256** 
 
 <img src="../screenshots/ctf13/selected_cipher_suite.png" alt="selected_cipher_suite">
 
-3. <total_encrypted_appdata_exchanged> 
+### 3. <total_encrypted_appdata_exchanged> 
 Corresponde à soma total do tamanho dos dados cifrados trocados. Assim, para obtermos este valor apenas precisamos de somar o número de bytes enviados por cada frame: 80 e 1184, obtendo assim **1264**
 
 <img src="../screenshots/ctf13/total_encrypted_appdata_exchanged_1.png" alt="total_encrypted_appdata_exchanged_1">
 <img src="../screenshots/ctf13/total_encrypted_appdata_exchanged_2.png" alt="total_encrypted_appdata_exchanged_2">
 
-4. <size_of_encrypted_message> 
+### 4. <size_of_encrypted_message> 
 Representa o tamanho da mensagem cifrada que concluiu o procedimento de handshake. Como já sabemos que se trata da frame 819, apenas precisamos de observar o seu tamanho e obtivemos assim o valor **80**
 
 <img src="../screenshots/ctf13/size_of_encrypted_message.png" alt="size_of_encrypted_message">
+
+## Conclusão
 
 Desta maneira, juntando todas as partes temos como resultado a flag: flag{814-819-TLS_RSA_WITH_AES_128_CBC_SHA256-1264-80}
 
