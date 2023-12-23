@@ -85,7 +85,34 @@ pkt = sniff(iface='br-ca72c778a626', filter='128.230.0.0/16', prn=print_pkt)
 
 ## Task 1.2: Spoofing ICMP Packets
 
-1. 
+
+Através da aplicação da ferramenta de manipulação de pacotes, Scapy, conseguimos ajustar os parâmetros dos pacotes IP conforme necessário. 
+
+O propósito central desta atividade consistiu em criar pacotes IP falsificados com um endereço IP de origem arbitrário. Esses pacotes, que simulavam solicitações de eco ICMP, foram então direcionados a outra máquina virtual na mesma rede. 
+
+A utilização do Wireshark possibilitou a observação quanto à aceitação da solicitação pelo destinatário. Caso fosse aceita, um pacote de resposta de eco seria encaminhado para o endereço IP falsificado. 
+
+A implementação dessa tarefa envolveu a execução do seguinte código:
+
+```python
+#!/usr/bin/env python3
+from scapy.all import *
+a = IP()
+a.src = '10.9.0.1'
+a.dst = '10.9.0.5'
+b = ICMP()
+p = a/b
+send(p)
+```
+
+Ao indicarmos o endereço IP de um dos nossos contentores ('10.9.0.5') e ao gerarmos um pacote ICMP, fomos capazed de enviar esse pacote para o contentor que escolhemos (neste caso o contentor do host A).
+
+<img src="../screenshots/logbook13/task12.png" alt="task12">
+
+Assim, podemos ver no WireShark:
+
+<img src="../screenshots/logbook13/task12_wireshark.png" alt="task12_wireshark">
+
 
 
 ## Task 1.3: Traceroute
