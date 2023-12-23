@@ -51,50 +51,35 @@ Sem root privilege:
 
 De seguida, foi-nos pedido que alterassemos o script de python, para que capturasse packets apenas de um determinado tipo.
 
-<table>
-    <tr>
-        <th>Capturar apenas o pacote ICMP</th>
-        <th>
-        ```python
+**1. Capturar apenas o pacote ICMP**
+
+```python
 #!/usr/bin/env python3
 from scapy.all import *
-
 def print_pkt(pkt):
   pkt.show()
-
 pkt = sniff(iface='br-ca72c778a626', filter='icmp', prn=print_pkt)  
 ```
-        </th>
-    </tr>
-    <tr>
-        <th>Capturar qualquer pacote TCP proveniente de um IP específico e com um número de porta de destino 23</th>
-        <th>
-        ```python
+
+**2. Capturar qualquer pacote TCP proveniente de um IP específico e com um número de porta de destino 23**
+
+```python
 #!/usr/bin/env python3
 from scapy.all import *
-
 def print_pkt(pkt):
   pkt.show()
-
 pkt = sniff(iface='br-ca72c778a626', filter='tcp && src host 10.9.0.6 && dst port 23', prn=print_pkt) 
 ```
-        </th>
-    </tr>
-    <tr>
-        <th>Capturar pacotes provenientes ou destinados a uma sub-rede específica. (Qualquer sub-rede, como 128.230.0.0/16, mas não a sub-rede à qual a VM está conectada)</th>
-        <th>
-        ```python
+
+**3. Capturar pacotes provenientes ou destinados a uma sub-rede específica. (Qualquer sub-rede, como 128.230.0.0/16, mas não a sub-rede à qual a VM está conectada)**
+
+```python
 #!/usr/bin/env python3
 from scapy.all import *
-
 def print_pkt(pkt):
   pkt.show()
-
 pkt = sniff(iface='br-ca72c778a626', filter='128.230.0.0/16', prn=print_pkt)  
 ```
-        </th>
-    </tr>
-</table>
 
 ## Task 1.2: Spoofing ICMP Packets
 
