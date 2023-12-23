@@ -42,9 +42,11 @@ pkt = sniff(iface='br-ca72c778a626', filter='icmp', prn=print_pkt)
 ### Task 1.1 A
 
 Com root privilege:
+
 <img src="../screenshots/logbook13/task11_a_rootprivelge.png" alt="task11_a_rootprivelge">
 
 Sem root privilege:
+
 <img src="../screenshots/logbook13/task11_a_norootprivelge.png" alt="task11_a_norootprivelge">
 
 ### Task 1.1 B
