@@ -6,7 +6,7 @@ Neste lab, o foco incide sobre "sniffing" e "spoofing", aspetos essenciais da se
 
 | Sniffing      | Spoofing |
 | ----------- | ----------- |
-| Refere-se à prática de intercetar e analisar o tráfego de dados em uma rede para obter informações, podendo ser usada para fins de monitoramento legítimo ou para atividades maliciosas.      | Envolve a falsificação de identidade, onde um dispositivo ou usuário mascara sua identidade real, podendo ser utilizado para enganar sistemas de segurança, realizar ataques de phishing ou manipular informações dentro de uma rede.       |
+| Refere-se à prática de intercetar e analisar o tráfego de dados em uma rede para obter informações, podendo ser usada para fins de monitoramento legítimo ou para atividades maliciosas.      | Envolve a falsificação de identidade, onde um dispositivo ou usuário mascara a sua identidade real, podendo ser utilizado para enganar sistemas de segurança, realizar ataques de phishing ou manipular informações dentro de uma rede.       |
 
 
 ### Setup
@@ -18,11 +18,9 @@ A configuração dos contentores acima descritos envolveu o download e descompac
 
 De seguida, foi-nos pedido que utilizassemos o comando "docker ps" para descobrir o ID do contentor, seguido do comando "docker exec" para iniciar uma shell nesse contentor.
 
-Neste laboratório, a máquina do atacante pode ser tanto uma VM quanto um contentor de atacante, conforme especificado no ficheiro Docker Compose. 
-
 O contentor de atacante é configurado de forma diferente, apresentando uma pasta partilhada para uma edição de código conveniente e um modo de anfitrião para permitir a interceção de pacotes. 
 
-O endereço IP atribuído à network é 10.9.0.1, e o ID da redeé 10.9.0.0/24. Foi-nos pedido ainda que encontrássemos o nome da interface de rede da nossa VM. Como podemos observar abaixo, no nosso caso: **br-ca72c778a626**.
+O endereço IP atribuído à network é 10.9.0.1, e o ID da rede é 10.9.0.0/24. Foi-nos pedido ainda que encontrássemos o nome da interface de rede da nossa VM. Como podemos observar abaixo, no nosso caso: **br-ca72c778a626**.
 
 <img src="../screenshots/logbook13/setup.png" alt="setup">
 
@@ -49,7 +47,7 @@ Sem root privilege:
 
 ### Task 1.1 B
 
-De seguida, foi-nos pedido que alterassemos o script de python, para que capturasse packets apenas de um determinado tipo.
+De seguida, foi-nos pedido que alterássemos o script em Python para que capturasse pacotes apenas de um determinado tipo.
 
 **1. Capturar apenas o pacote ICMP**
 
@@ -88,7 +86,7 @@ Através da aplicação da ferramenta de manipulação de pacotes, Scapy, conseg
 
 O propósito central desta atividade consistiu em criar pacotes IP falsificados com um endereço IP de origem arbitrário. Esses pacotes, que simulavam solicitações de eco ICMP, foram então direcionados a outra máquina virtual na mesma rede. 
 
-A utilização do Wireshark possibilitou a observação quanto à aceitação da solicitação pelo destinatário. Caso fosse aceita, um pacote de resposta de eco seria encaminhado para o endereço IP falsificado. 
+A utilização do Wireshark possibilitou a observação quanto à aceitação da solicitação pelo destinatário. Caso fosse aceite, um pacote de resposta de eco seria encaminhado para o endereço IP falsificado. 
 
 A implementação dessa tarefa envolveu a execução do seguinte código:
 
@@ -103,7 +101,7 @@ p = a/b
 send(p)
 ```
 
-Ao indicarmos o endereço IP de um dos nossos contentores ('10.9.0.5') e ao gerarmos um pacote ICMP, fomos capazed de enviar esse pacote para o contentor que escolhemos (neste caso o contentor do host A).
+Ao indicarmos o endereço IP de um dos nossos contentores ('10.9.0.5') e ao gerarmos um pacote ICMP, fomos capazes de enviar esse pacote para o contentor que escolhemos (neste caso o contentor do host A).
 
 <img src="../screenshots/logbook13/task12.png" alt="task12">
 
@@ -114,7 +112,6 @@ Assim, podemos ver no WireShark:
 
 
 ## Task 1.3: Traceroute
-
 
 Nesta tarefa, utilizamos o Scapy para estimar a distância, em termos de número de routers, entre máquina virtual (VM) e um destino selecionado. 
 
@@ -201,4 +198,4 @@ pkt = sniff(iface='br-ca72c778a626', filter='icmp and host 1.2.3.4', prn=spoof)
 | '1.2.3.4' | '10.9.0.99' | '8.8.8.8' | 
 | ----------- | ----------- | ----------- |
 | <img src="../screenshots/logbook13/task14_1234.png" alt="task14_1234">      | <img src="../screenshots/logbook13/task14_109099.png" alt="task14_109099">      | <img src="../screenshots/logbook13/task14_8888.png" alt="task14_8888">      |
-| O pacote original é enviado do contentor de utilizador para o host inexistente 1.2.3.4 na Internet. De seguida, o programa deteta o pacote de pedido de eco ICMP e falsifica um pacote de resposta, indicando que o host inexistente (1.2.3.4) está ativo.O programa ping no contentor de utilizador recebe uma resposta, sugerindo falsamente que o host inexistente está acessível. | No segundo caso (ping 10.9.0.99: um host inexistente na LAN), como o host inexistente está na mesma rede local, os pacotes não necessariamente precisam passar pelo computador do atacante. Quando um host deseja comunicar com outro host na mesma rede local, ele envia um pedido ARP para descobrir o endereço MAC associado ao endereço IP. Neste caso, o pacote de difusão é enviado para toda a rede local, e não envolve o endereço MAC do atacante. | O pacote original é enviado do contentor de utilizador para o host existente 8.8.8.8 na Internet. O programa deteta o pacote de pedido de eco ICMP e indica que o host existente (8.8.8.8) está ativo. O programa ping no contentor de utilizador recebe uma resposta, mas, neste caso, a resposta é legítima, refletindo o estado real do host. |
+| O pacote original é enviado do contentor de utilizador para o host inexistente 1.2.3.4 na Internet. De seguida, o programa deteta o pacote de pedido de eco ICMP e falsifica um pacote de resposta, indicando que o host inexistente (1.2.3.4) está ativo. O programa ping no contentor de utilizador recebe uma resposta, sugerindo falsamente que o host inexistente está acessível. | No segundo caso (ping 10.9.0.99: um host inexistente na LAN), como o host inexistente está na mesma rede local, os pacotes não necessariamente precisam passar pelo computador do atacante. Quando um host deseja comunicar com outro host na mesma rede local, ele envia um pedido ARP para descobrir o endereço MAC associado ao endereço IP. Neste caso, o pacote de difusão é enviado para toda a rede local, e não envolve o endereço MAC do atacante. | O pacote original é enviado do contentor de utilizador para o host existente 8.8.8.8 na Internet. O programa deteta o pacote de pedido de eco ICMP e indica que o host existente (8.8.8.8) está ativo. O programa ping no contentor de utilizador recebe uma resposta, mas, neste caso, a resposta é legítima, refletindo o estado real do host. |
