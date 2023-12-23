@@ -155,3 +155,50 @@ E aqui está o resultado de alguns testes para diferentes destinos:
 
 
 ## Task 1.4: Sniffing and-then Spoofing
+
+
+Nesta tarefa, combinamos as técnicas de "sniffing" e "spoofing" para criar um programa de "sniff-and-then-spoof". 
+
+Para isso, tal como sugerido no enunciado, utilizamos duas máquinas na mesma LAN: a VM e o contentor de utilizador. A partir do contentor de utilizador, fizemos um ping para um IP X, gerando um pedido de eco ICMP.
+
+Quando X está ativo, o programa ping recebe uma resposta de eco e imprime a resposta. O programa "sniff-and-then-spoof" é executado na VM, monitorando a LAN através de "sniffing" de pacotes. 
+
+Sempre que deteta um pedido de eco ICMP, independentemente do endereço IP de destino, o programa envia imediatamente uma resposta de eco utilizando a técnica de "spoofing" de pacotes. 
+
+Assim, o programa ping sempre recebe uma resposta, indicando que X está ativo, independentemente da sua disponibilidade real.
+
+O script final que obtermos foi o seguinte:
+
+```python
+#!/usr/bin/env python3
+from scapy.all import *
+
+def spoof(pkt):
+	if pkt[ICMP].type == 8:
+        	src = pkt[IP].src
+        	dst = pkt[IP].dst
+        	
+        	print("Original Packet")
+        	print("Source: ", src)
+        	print("Destination:", dst)
+        	
+        	ihl = pkt[IP].ihl
+        	ip = IP(src=dst, dst=src, ihl=ihl)
+        	icmp = ICMP(type=0, id=pkt[ICMP].id, seq=pkt[ICMP].seq)
+        	data = pkt[Raw].load
+        	newpacket = ip/icmp/data
+        	
+        	print("Spoofed Packet")
+        	print("Source: ", newpacket[IP].src)
+        	print("Destination: ", newpacket[IP].dst)
+        	
+        	send(newpacket, verbose=0)
+
+
+pkt = sniff(iface='br-ca72c778a626', filter='icmp and host 1.2.3.4', prn=spoof)
+```
+
+| '1.2.3.4' | '10.9.0.99' | '8.8.8.8' | 
+| ----------- | ----------- | ----------- |
+| <img src="../screenshots/logbook13/task14_1234.png" alt="task14_1234">      | <img src="../screenshots/logbook13/task14_109099.png" alt="task14_109099">      | <img src="../screenshots/logbook13/task14_8888.png" alt="task14_8888">      |
+| O pacote original é enviado do contentor de utilizador para o host inexistente 1.2.3.4 na Internet. De seguida, o programa deteta o pacote de pedido de eco ICMP e falsifica um pacote de resposta, indicando que o host inexistente (1.2.3.4) está ativo.O programa ping no contentor de utilizador recebe uma resposta, sugerindo falsamente que o host inexistente está acessível. | No segundo caso (ping 10.9.0.99: um host inexistente na LAN), como o host inexistente está na mesma rede local, os pacotes não necessariamente precisam passar pelo computador do atacante. Quando um host deseja comunicar com outro host na mesma rede local, ele envia um pedido ARP para descobrir o endereço MAC associado ao endereço IP. Neste caso, o pacote de difusão é enviado para toda a rede local, e não envolve o endereço MAC do atacante. | O pacote original é enviado do contentor de utilizador para o host existente 8.8.8.8 na Internet. O programa deteta o pacote de pedido de eco ICMP e indica que o host existente (8.8.8.8) está ativo. O programa ping no contentor de utilizador recebe uma resposta, mas, neste caso, a resposta é legítima, refletindo o estado real do host. |
